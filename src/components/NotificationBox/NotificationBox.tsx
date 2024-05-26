@@ -1,5 +1,6 @@
 import InfoIcon from '@mui/icons-material/Info';
-import { Stack, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import * as S from './NotificationBoxStyles';
 
 type NotificationBoxProps = {
   info?: string;
@@ -7,9 +8,9 @@ type NotificationBoxProps = {
 
 export const NotificationBox: React.FC<NotificationBoxProps> = ({ info }) => {
   return (
-    <Stack direction="row" gap={1}>
+    <S.NotificationBoxContainer>
       <InfoIcon />
       <Typography>{info}</Typography>
-    </Stack>
+    </S.NotificationBoxContainer>
   );
 };

@@ -18,6 +18,6 @@ export const PaginationBar: React.FC<PaginationBarProps> = ({ page = 1, onChange
     [onChange],
   );
 
-  return <Pagination count={10} page={currentPage} onChange={handleChange} size="large" />;
-  // get count from .env
+  return <Pagination count={10} page={currentPage} onChange={handleChange} size="large" color="primary" />;
+  // get count from .env or const
 };

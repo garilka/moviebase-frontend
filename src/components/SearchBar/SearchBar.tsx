@@ -1,22 +1,30 @@
-import { TextField } from '@mui/material';
 import { useCallback, useState } from 'react';
+import * as S from './SearchBarStyles';
 
 type SearchBarProps = {
   value?: string;
-  onChange: () => void;
+  onChange?: () => void;
+  onClick?: () => void;
 };
 
-export const SearchBar: React.FC<SearchBarProps> = ({ value = '', onChange }) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ value = '', onChange, onClick }) => {
   const [searchValue, setSearchValue] = useState<string>(value);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       setSearchValue(event.target.value);
 
-      onChange();
+      onChange && onChange();
     },
     [onChange],
   );
 
-  return <TextField value={searchValue} onChange={handleChange} placeholder="Eg.: Pulp fiction" />;
+  return (
+    <S.SearchBarContainer>
+      <S.SearchTextField fullWidth value={searchValue} onChange={handleChange} placeholder="Search for some movie" />
+      <S.SearchButton variant="outlined" onClick={onClick}>
+        Search
+      </S.SearchButton>
+    </S.SearchBarContainer>
+  );
 };

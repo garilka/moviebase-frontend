@@ -1,32 +1,41 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import * as S from './MovieCardStyles';
 
 type MovieCardProps = {
   title: string;
+  originalTitle: string;
   overview: string;
   releaseDate: number;
   imageUrl: string;
+  voteAverage: number;
 };
 
-export const MovieCard: React.FC<MovieCardProps> = ({ title, releaseDate, overview, imageUrl }) => {
+export const MovieCard: React.FC<MovieCardProps> = ({
+  title,
+  originalTitle,
+  releaseDate,
+  overview,
+  imageUrl,
+  voteAverage,
+}) => {
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardMedia component="img" height="194" image="/static/images/cards/paella.jpg" alt={`${title} cover image`} />
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Title: {title}
-        </Typography>
-        <Typography sx={{ fontSize: '1rem' }} color="text.secondary" gutterBottom>
-          Overview: {overview}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          Release date: {releaseDate}
-        </Typography>
-        <Typography variant="body2">
-          {imageUrl}
-          <br />
-          {'"image url"'}
-        </Typography>
-      </CardContent>
-    </Card>
+    <S.MovieCardContainer>
+      <S.MovieCardMedia component="img" image={imageUrl} />
+      <S.MovieCardContent>
+        <div>
+          <S.Title variant="h5">
+            <span>{title}</span>
+            <S.OriginalTitle>({originalTitle})</S.OriginalTitle>
+          </S.Title>
+          <S.ReleaseDate color="text.secondary">Release date - {releaseDate}</S.ReleaseDate>
+          <S.Overview color="text.secondary">{overview}</S.Overview>
+        </div>
+        <S.VoteContainer>
+          <StarIcon />
+          <S.VoteValue>{voteAverage}</S.VoteValue>
+          <S.VoteMax> / 10</S.VoteMax>
+        </S.VoteContainer>
+      </S.MovieCardContent>
+    </S.MovieCardContainer>
   );
 };
