@@ -1,23 +1,33 @@
 import './App.css';
-import logo from './logo.svg';
+import { MovieCard } from './components/MovieCard/MovieCard';
+import { NotificationBox } from './components/NotificationBox/NotificationBox';
+import { OutlinedButton } from './components/OutlinedButton/OutlinedButton';
+import { PaginationBar } from './components/PaginationBar/PaginationBar';
+import { SearchBar } from './components/SearchBar/SearchBar';
+
+const movieProps = {
+  title: 'ize',
+  overview: 'ize bize dolgok',
+  releaseDate: 2022,
+  imageUrl: 'image',
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {/* <header className="App-header">
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Edit d<code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </header> */}
+      {/* aria labels */}
+      {/* BODY WRAP FOR THESE */}
+
+      <SearchBar onChange={() => {}} />
+      <OutlinedButton label="Search" onClick={() => {}} />
+      <NotificationBox info="dolgok tortennek" />
+      <MovieCard {...movieProps} />
+      <PaginationBar page={5} onChange={() => {}} />
     </div>
   );
 }
