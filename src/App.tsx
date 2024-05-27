@@ -28,21 +28,16 @@ function App() {
     }, 500);
 
     return () => clearTimeout(timeOutId);
-  }, [search, page]);
+  }, [search]);
 
   useEffect(() => {
-    if (delayedSearch) {
-      handleGetMovies(delayedSearch, page);
-    }
+    handleGetMovies(delayedSearch, page);
   }, [delayedSearch, page]);
 
   return (
     <div className="app">
       <main className="main">
-        <AppHeader
-          notification="dolgok tortennek"
-          // onSearchButtonClick={handleGetMovies}
-        />
+        <AppHeader notification="dolgok tortennek" onSearchButtonClick={handleGetMovies} />
         <MovieCardList movies={movies} />
         <PaginationBar />
       </main>

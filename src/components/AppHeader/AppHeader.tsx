@@ -4,12 +4,13 @@ import * as S from './AppHeaderStyles';
 
 type AppHeaderProps = {
   notification?: string;
+  onSearchButtonClick: (search: string, page: number) => Promise<void>;
 };
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ notification }) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({ notification, onSearchButtonClick }) => {
   return (
     <S.AppHeaderContainer>
-      <SearchBar />
+      <SearchBar onClick={onSearchButtonClick} />
       {notification && <NotificationBox info={notification} />}
     </S.AppHeaderContainer>
   );
