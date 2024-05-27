@@ -6,7 +6,7 @@ type MovieCardProps = {
   originalTitle: string;
   overview: string;
   releaseDate: number;
-  imageUrl: string;
+  posterUrl: string;
   voteAverage: number;
 };
 
@@ -15,12 +15,12 @@ export const MovieCard: React.FC<MovieCardProps> = ({
   originalTitle,
   releaseDate,
   overview,
-  imageUrl,
+  posterUrl,
   voteAverage,
 }) => {
   return (
     <S.MovieCardContainer>
-      <S.MovieCardMedia component="img" image={imageUrl} />
+      <S.MovieCardMedia component="img" image={posterUrl} />
       <S.MovieCardContent>
         <div>
           <S.Title variant="h5">

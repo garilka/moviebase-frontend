@@ -1,22 +1,31 @@
 import { useCallback, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from '../../hooks/useQuery';
 import * as S from './SearchBarStyles';
 
 type SearchBarProps = {
-  value?: string;
-  onChange?: () => void;
   onClick?: () => void;
 };
 
-export const SearchBar: React.FC<SearchBarProps> = ({ value = '', onChange, onClick }) => {
-  const [searchValue, setSearchValue] = useState<string>(value);
+export const SearchBar: React.FC<SearchBarProps> = ({ onClick }) => {
+  const query = useQuery();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const initialSearchValue = query.get('search') ?? '';
+  const [searchValue, setSearchValue] = useState<string>(initialSearchValue);
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      setSearchValue(event.target.value);
+    async (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      const value = event.target.value;
 
-      onChange && onChange();
+      setSearchValue(value);
+
+      const queryParams = new URLSearchParams(location.search);
+      queryParams.set('search', value);
+      navigate(`?${queryParams.toString()}`);
     },
-    [onChange],
+    [location.search, navigate],
   );
 
   return (
