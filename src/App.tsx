@@ -13,11 +13,16 @@ function App() {
   const search = query.get('search') ?? '';
   const page = !isNil(query.get('page')) ? Number(query.get('page')) : 1;
 
+  const [pageCount, setPageCount] = useState();
   const [movies, setMovies] = useState([]);
 
   const handleGetMovies = async (search: string, page: number) => {
     const { data } = await getMoviesBySearch(search, page);
-    setMovies(data);
+    const { meta, movies } = data;
+    const { pageCount } = meta;
+
+    setPageCount(pageCount);
+    setMovies(movies);
   };
 
   useEffect(() => {
@@ -29,7 +34,7 @@ function App() {
       <main className="main">
         <AppHeader notification="dolgok tortennek" onSearchButtonClick={handleGetMovies} />
         <MovieCardList movies={movies} />
-        <PaginationBar />
+        <PaginationBar pageCount={pageCount} />
       </main>
     </div>
   );

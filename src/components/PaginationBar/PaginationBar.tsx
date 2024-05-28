@@ -4,7 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery';
 
-export const PaginationBar: React.FC = () => {
+type PaginationBarProps = {
+  pageCount?: number;
+};
+
+export const PaginationBar: React.FC<PaginationBarProps> = ({ pageCount = 10 }) => {
   const query = useQuery();
   const navigate = useNavigate();
 
@@ -27,5 +31,5 @@ export const PaginationBar: React.FC = () => {
     [query, navigate],
   );
 
-  return <Pagination count={10} page={currentPage} onChange={handleChange} size="large" color="primary" />;
+  return <Pagination count={pageCount} page={currentPage} onChange={handleChange} size="large" color="primary" />;
 };
