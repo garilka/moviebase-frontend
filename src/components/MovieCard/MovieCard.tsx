@@ -1,11 +1,13 @@
 import StarIcon from '@mui/icons-material/Star';
+import { formatDateString } from '../../utils/formatDateString';
+import { roundNumberToOneDecimal } from '../../utils/roundNumberToOneDecimal';
 import * as S from './MovieCardStyles';
 
 type MovieCardProps = {
   title: string;
   originalTitle: string;
   overview: string;
-  releaseDate: number;
+  releaseDate: string;
   posterUrl: string;
   voteAverage: number;
 };
@@ -20,20 +22,26 @@ export const MovieCard: React.FC<MovieCardProps> = ({
 }) => {
   return (
     <S.MovieCardContainer>
-      <S.MovieCardMedia component="img" image={posterUrl} />
+      <S.MovieCardMedia component="img" image={posterUrl ?? '/movie-reel.png'} />
       <S.MovieCardContent>
         <div>
           <S.Title variant="h5">
             <span>{title}</span>
-            <S.OriginalTitle>({originalTitle})</S.OriginalTitle>
+            {originalTitle && originalTitle !== title && <S.OriginalTitle>({originalTitle})</S.OriginalTitle>}
           </S.Title>
-          <S.ReleaseDate color="text.secondary">Release date - {releaseDate}</S.ReleaseDate>
+          <S.ReleaseDate color="text.secondary">Release date - {formatDateString(releaseDate)}</S.ReleaseDate>
           <S.Overview color="text.secondary">{overview}</S.Overview>
         </div>
         <S.VoteContainer>
           <StarIcon />
-          <S.VoteValue>{voteAverage}</S.VoteValue>
-          <S.VoteMax> / 10</S.VoteMax>
+          {voteAverage ? (
+            <>
+              <S.VoteValue>{roundNumberToOneDecimal(voteAverage)}</S.VoteValue>
+              <S.VoteMax> / 10</S.VoteMax>
+            </>
+          ) : (
+            <S.VoteValue>-</S.VoteValue>
+          )}
         </S.VoteContainer>
       </S.MovieCardContent>
     </S.MovieCardContainer>
