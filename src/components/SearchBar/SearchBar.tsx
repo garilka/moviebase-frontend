@@ -24,7 +24,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onClick }) => {
       setSearchValue(value);
 
       const queryParams = new URLSearchParams(location.search);
+
       queryParams.set('search', value);
+      queryParams.set('page', '1');
+
       navigate(`?${queryParams.toString()}`);
     },
     [location.search, navigate],
