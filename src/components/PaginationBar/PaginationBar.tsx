@@ -1,33 +1,30 @@
 import { Pagination } from '@mui/material';
 import { isNil } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery';
 
 export const PaginationBar: React.FC = () => {
   const query = useQuery();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    const initalPage = !isNil(query.get('page')) ? Number(query.get('page')) : 1;
+    const page = !isNil(query.get('page')) ? Number(query.get('page')) : 1;
 
-    setCurrentPage(initalPage);
+    setCurrentPage(page);
   }, [query]);
 
   const handleChange = useCallback(
     (_event: React.ChangeEvent<unknown>, value: number) => {
       setCurrentPage(value);
 
-      const queryParams = new URLSearchParams(location.search);
+      query.set('page', value.toString());
 
-      queryParams.set('page', value.toString());
-
-      navigate(`?${queryParams.toString()}`);
+      navigate(`?${query.toString()}`);
     },
-    [location.search, navigate],
+    [query, navigate],
   );
 
   return <Pagination count={10} page={currentPage} onChange={handleChange} size="large" color="primary" />;

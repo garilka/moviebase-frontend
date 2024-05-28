@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery';
 import * as S from './SearchBarStyles';
@@ -17,24 +17,38 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onClick }) => {
 
   const [searchValue, setSearchValue] = useState<string>(initialSearchValue);
 
-  const handleChange = useCallback(
-    async (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      const value = event.target.value;
+  useEffect(() => {
+    if (!searchValue || searchValue?.length < 4) return;
 
-      setSearchValue(value);
-
+    const timeOutId = setTimeout(() => {
       const queryParams = new URLSearchParams(location.search);
 
-      queryParams.set('search', value);
+      queryParams.set('search', searchValue);
       queryParams.set('page', '1');
 
       navigate(`?${queryParams.toString()}`);
-    },
-    [location.search, navigate],
-  );
+    }, 500);
+
+    return () => clearTimeout(timeOutId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
+
+  const handleChange = useCallback(async (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const value = event.target.value;
+
+    setSearchValue(value);
+  }, []);
 
   const handleClick = useCallback(async () => {
+    const queryParams = new URLSearchParams(location.search);
+
+    queryParams.set('search', searchValue);
+    queryParams.set('page', '1');
+
+    navigate(`?${queryParams.toString()}`);
+
     onClick(searchValue, page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClick, page, searchValue]);
 
   return (

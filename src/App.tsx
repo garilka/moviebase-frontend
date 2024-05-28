@@ -1,3 +1,4 @@
+import { isNil } from 'lodash';
 import { useEffect, useState } from 'react';
 import './App.css';
 import { getMoviesBySearch } from './api/movies.api';
@@ -10,10 +11,9 @@ function App() {
   const query = useQuery();
 
   const search = query.get('search') ?? '';
-  const page = query.get('page') !== null ? Number(query.get('page')) : 1;
+  const page = !isNil(query.get('page')) ? Number(query.get('page')) : 1;
 
   const [movies, setMovies] = useState([]);
-  const [delayedSearch, setDelayedSearch] = useState<string>(search);
 
   const handleGetMovies = async (search: string, page: number) => {
     const { data } = await getMoviesBySearch(search, page);
@@ -21,18 +21,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (!search || search?.length < 4) return;
-
-    const timeOutId = setTimeout(() => {
-      setDelayedSearch(search);
-    }, 500);
-
-    return () => clearTimeout(timeOutId);
-  }, [search]);
-
-  useEffect(() => {
-    handleGetMovies(delayedSearch, page);
-  }, [delayedSearch, page]);
+    handleGetMovies(search, page);
+  }, [search, page]);
 
   return (
     <div className="app">
