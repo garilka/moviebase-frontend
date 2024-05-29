@@ -3,16 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery';
 import * as S from './SearchBarStyles';
 
-type SearchBarProps = {
-  onClick: (search: string, page: number) => Promise<void>;
-};
-
-export const SearchBar: React.FC<SearchBarProps> = ({ onClick }) => {
+export const SearchBar: React.FC = () => {
   const query = useQuery();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const page = query.get('page') !== null ? Number(query.get('page')) : 1;
   const initialSearchValue = query.get('search') ?? '';
 
   const [searchValue, setSearchValue] = useState<string>(initialSearchValue);
@@ -30,8 +25,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onClick }) => {
     }, 500);
 
     return () => clearTimeout(timeOutId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchValue]);
+  }, [location.search, navigate, searchValue]);
 
   const handleChange = useCallback(async (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
@@ -46,10 +40,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onClick }) => {
     queryParams.set('page', '1');
 
     navigate(`?${queryParams.toString()}`);
-
-    onClick(searchValue, page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onClick, page, searchValue]);
+  }, [location.search, navigate, searchValue]);
 
   return (
     <S.SearchBarContainer>

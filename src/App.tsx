@@ -12,12 +12,12 @@ function App() {
   const search = query.get('search') ?? '';
   const page = !isNil(query.get('page')) ? Number(query.get('page')) : 1;
 
-  const { movies, pageCount, message, isLoading, isError, handleGetMovies } = useGetMoviesBySearch(search, page);
+  const { movies, pageCount, message, isLoading, isError } = useGetMoviesBySearch(search, page);
 
   return (
     <div className="app">
       <main className="main">
-        <AppHeader message={message} isLoading={isLoading} isError={isError} onSearchButtonClick={handleGetMovies} />
+        <AppHeader message={message} isLoading={isLoading} isError={isError} />
         <MovieCardList movies={movies} />
         <PaginationBar pageCount={pageCount} />
       </main>

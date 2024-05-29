@@ -6,13 +6,12 @@ type AppHeaderProps = {
   message?: string;
   isLoading: boolean;
   isError: boolean;
-  onSearchButtonClick: (search: string, page: number) => Promise<void>;
 };
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ message, isLoading, isError, onSearchButtonClick }) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({ message, isLoading, isError }) => {
   return (
     <S.AppHeaderContainer>
-      <SearchBar onClick={onSearchButtonClick} />
+      <SearchBar />
       <NotificationBox message={message} isLoading={isLoading} isError={isError} />
     </S.AppHeaderContainer>
   );
