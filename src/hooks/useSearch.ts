@@ -20,7 +20,8 @@ export const useSearch = (initialSearchValue: string = '') => {
     }, 500);
 
     return () => clearTimeout(timeOutId);
-  }, [location.search, navigate, searchValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
   const handleChange = useCallback(async (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
@@ -35,7 +36,8 @@ export const useSearch = (initialSearchValue: string = '') => {
     queryParams.set('page', '1');
 
     navigate(`?${queryParams.toString()}`);
-  }, [location.search, navigate, searchValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
   return {
     searchValue,
