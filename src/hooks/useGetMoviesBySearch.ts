@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getMoviesBySearch } from '../api/movies.api';
+import { Movie } from '../types/movie.types';
 
 export const useGetMoviesBySearch = (search: string, page: number) => {
-  const [movies, setMovies] = useState([]);
-  const [pageCount, setPageCount] = useState();
-  const [message, setMessage] = useState();
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [pageCount, setPageCount] = useState<number>();
+  const [message, setMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
