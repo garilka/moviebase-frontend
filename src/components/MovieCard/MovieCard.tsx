@@ -22,7 +22,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({
 }) => {
   return (
     <S.MovieCardContainer>
-      <S.MovieCardMedia component="img" image={posterUrl ?? '/movie-reel.png'} />
+      <S.MovieCardMedia component="img" image={posterUrl ?? `${process.env.PUBLIC_URL}/movie-reel.png`} />
       <S.MovieCardContent>
         <div>
           <S.Title variant="h5">
