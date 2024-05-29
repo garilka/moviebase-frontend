@@ -5,7 +5,7 @@ import * as S from './SearchBarStyles';
 export const SearchBar: React.FC = () => {
   const query = useQuery();
 
-  const initialSearchValue = query.get('search') ?? '';
+  const initialSearchValue = query.get('search') ?? 'example';
 
   const { searchValue, handleChange, handleClick } = useSearch(initialSearchValue);
 
