@@ -8,7 +8,7 @@ export const useSearch = (initialSearchValue: string = '') => {
   const [searchValue, setSearchValue] = useState<string>(initialSearchValue);
 
   useEffect(() => {
-    if (!searchValue || searchValue?.length < 4) return;
+    if (!searchValue || searchValue?.length < 3) return;
 
     const timeOutId = setTimeout(() => {
       const queryParams = new URLSearchParams(location.search);
