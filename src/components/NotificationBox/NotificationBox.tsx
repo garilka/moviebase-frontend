@@ -1,16 +1,33 @@
+import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
-import { Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import * as S from './NotificationBoxStyles';
 
 type NotificationBoxProps = {
-  info?: string;
+  message?: string;
+  isLoading: boolean;
+  isError: boolean;
 };
 
-export const NotificationBox: React.FC<NotificationBoxProps> = ({ info }) => {
+export const NotificationBox: React.FC<NotificationBoxProps> = ({ message, isLoading, isError }) => {
   return (
     <S.NotificationBoxContainer>
-      <InfoIcon />
-      <Typography>{info}</Typography>
+      {isLoading ? (
+        <>
+          <CircularProgress size={20} />
+          <Typography>{'Loading...'}</Typography>
+        </>
+      ) : isError ? (
+        <>
+          <ErrorIcon style={{ color: 'red' }} />
+          <Typography style={{ color: 'red' }}>{'Some error occured, please try again later'}</Typography>
+        </>
+      ) : (
+        <>
+          <InfoIcon />
+          <Typography>{message}</Typography>
+        </>
+      )}
     </S.NotificationBoxContainer>
   );
 };
