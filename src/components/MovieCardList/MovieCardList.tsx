@@ -9,7 +9,7 @@ type MovieCardListProps = {
 export const MovieCardList: React.FC<MovieCardListProps> = ({ movies }) => {
   return (
     <S.MovieCardListContainer>
-      {!isEmpty(movies) ? movies.map((movie, index) => <MovieCard key={index} {...movie} />) : 'No movies found'}
+      {!isEmpty(movies) ? movies.map((movie, index) => <MovieCard key={index} {...movie} />) : 'Empty movie list'}
     </S.MovieCardListContainer>
   );
 };
