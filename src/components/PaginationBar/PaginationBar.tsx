@@ -8,7 +8,7 @@ type PaginationBarProps = {
   pageCount?: number;
 };
 
-export const PaginationBar: React.FC<PaginationBarProps> = ({ pageCount = 10 }) => {
+export const PaginationBar: React.FC<PaginationBarProps> = ({ pageCount = 1 }) => {
   const query = useQuery();
   const navigate = useNavigate();
 
